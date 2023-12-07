@@ -20,15 +20,18 @@ If you're stuck with Kotlin-specific questions or anything related to this templ
 |-----|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 01  | [✓][day01] | [Trebuchet][aoc01]: Implemented the first part using a regex to find all digits in the string, then just taking the first and last element of the list. For the second part I continued down the regex path searching for the words. This however didn't work because of `1onenineqgzcq2eightwonh`... I couldn't find the last `two` with my regex fu. | 
 | 02  | [✓][day02] | [Cube Conundrum][aoc02]: Tried to use a regex and find the highest value pair... Failed. Switched to using substrings instead. I'm happy with the solution for part two, filtering by color and getting the highest amount                                                                                                                             | 
-| 03  | [✓][day03] | [Cube Conundrum][aoc03]: What a mess this day was. I managed to complete part 1, but went down a rabbit hole for part 2. Thought of a simpler solution for part 2 before falling asleep.                                                                                                                                                               | 
+| 03  | [✓][day03] | [Gear Ratios][aoc03]: What a mess this day was. I managed to complete part 1, but went down a rabbit hole for part 2. Thought of a simpler solution for part 2 before falling asleep.                                                                                                                                                                  | 
+| 04  | [✓][day04] | [Scratchcards][aoc04]: Using kotlin standard lib proved to be very helpful for today's puzzle. I ended up storing both lists first to perform the intersect but refactored it later to use reduce. When I was refactoring I understood that the calculations was about powers of 2                                                                     | 
  
 
 [aoc01]: https://adventofcode.com/2023/day/1
 [aoc02]: https://adventofcode.com/2023/day/2
-[aoc02]: https://adventofcode.com/2023/day/3
+[aoc03]: https://adventofcode.com/2023/day/3
+[aoc04]: https://adventofcode.com/2023/day/4
 [day01]: src/Day01.kt
 [day02]: src/Day02.kt
-[day02]: src/Day03.kt
+[day03]: src/Day03.kt
+[day04]: src/Day04.kt
 
 [aoc]: https://adventofcode.com
 [docs]: https://kotlinlang.org/docs/home.html
