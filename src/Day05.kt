@@ -1,3 +1,7 @@
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toSet
+import kotlinx.coroutines.runBlocking
 import kotlin.system.measureTimeMillis
 
 fun main() {
@@ -12,29 +16,14 @@ fun main() {
 
 
     fun getDestination(l: List<Banana>, seed: Long): Long {
-
         var dest = seed
         // narrow the search to a single list
         measureTimeMillis {
             l.filter { (it.sourceRangeStart <= seed && it.sourceRangeEnd >= seed) }
                 .forEach {
-                    // Filter inside the forEach
-//                    print(".")
-                    dest = it.destinationRangeStart+(seed-it.sourceRangeStart)
-//                    if (it.sourceRangeStart <= seed && it.sourceRangeEnd >= seed) {
-//                        var d = it.destination2(seed)
-//                        if (d != null) {
-//                            dest = d
-//                            return@forEach
-//                        }
-//                    }
+                    dest = it.destinationRangeStart + (seed - it.sourceRangeStart)
                 }
-//                    val d1 = it.destinationRangeStart+(seed-it.sourceRangeStart)
-//                    val d2 = it.destination(seed)
-
         }
-//            .also { "ms: ${it.println()}" }
-//
         return dest
     }
 
@@ -123,12 +112,24 @@ fun main() {
         var results: MutableList<Long> = mutableListOf()
 
         for (seedRange in seedRanges) {
+            runBlocking {
+//            results.add()
+                val seeds = (seedRange.first()..seedRange.first() + seedRange.last() - 1).toSet()
+                val r1 = seeds.asFlow()
+                    .also { println("processing ${seeds.size}") }
+                    .map { seed -> getLocationForSeed(seed) }
+                    .toSet()
+                results.add(r1.min())
+            }
 
-            results.add((seedRange.first()..seedRange.first() + seedRange.last() - 1).toSet()
-                .also { println("processing ${it.size}") }
-                .map { seed -> getLocationForSeed(seed) }
-                .min()
-            )
+//            val seeds = (seedRange.first()..seedRange.first() + seedRange.last() - 1).toSet()
+//
+//            val r = seeds.parallelStream()
+//                .also { println("processing ${seeds.size}") }
+//                .map { seed -> getLocationForSeed(seed) }
+//                .toList()
+//
+//            results.add(r.min())
         }
 
         return results.min()
