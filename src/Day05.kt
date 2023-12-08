@@ -11,30 +11,44 @@ fun main() {
     var humidity2location: List<Banana> = listOf()
 
 
+    fun getDestination(l: List<Banana>, seed: Long): Long {
+
+        var dest = seed
+        // narrow the search to a single list
+        measureTimeMillis {
+            l.filter { (it.sourceRangeStart <= seed && it.sourceRangeEnd >= seed) }
+                .forEach {
+                    // Filter inside the forEach
+//                    print(".")
+                    dest = it.destinationRangeStart+(seed-it.sourceRangeStart)
+//                    if (it.sourceRangeStart <= seed && it.sourceRangeEnd >= seed) {
+//                        var d = it.destination2(seed)
+//                        if (d != null) {
+//                            dest = d
+//                            return@forEach
+//                        }
+//                    }
+                }
+//                    val d1 = it.destinationRangeStart+(seed-it.sourceRangeStart)
+//                    val d2 = it.destination(seed)
+
+        }
+//            .also { "ms: ${it.println()}" }
+//
+        return dest
+    }
+
     fun getLocationForSeed(seed: Long): Long {
-//        println("Seed number: $seed")
-        var soil = seed2soil.map { b -> b.destination(seed) }
-            .filter { (it != null) }
-            .elementAtOrElse(0) { seed }
-        val fertilizer = soil2fertilizer.map { b -> b.destination(soil!!) }
-            .filter { (it != null) }
-            .elementAtOrElse(0) { soil }
-        val water = fertilizer2water.map { b -> b.destination(fertilizer!!) }
-            .filter { (it != null) }
-            .elementAtOrElse(0) { fertilizer }
-        val light = water2light.map { b -> b.destination(water!!) }
-            .filter { (it != null) }
-            .elementAtOrElse(0) { water }
-        val temp = light2temperature.map { b -> b.destination(light!!) }
-            .filter { (it != null) }
-            .elementAtOrElse(0) { light }
-        val humidity = temperature2humidity.map { b -> b.destination(temp!!) }
-            .filter { (it != null) }
-            .elementAtOrElse(0) { temp }
-        val location = humidity2location.map { b -> b.destination(humidity!!) }
-            .filter { (it != null) }
-            .elementAtOrElse(0) { humidity }
-        return location!!
+
+        var soil = getDestination(seed2soil, seed)
+        var fertilizer = getDestination(soil2fertilizer, soil)
+        val water = getDestination(fertilizer2water, fertilizer)
+        val light = getDestination(water2light, water)
+        val temp = getDestination(light2temperature, light)
+        val humidity = getDestination(temperature2humidity, temp)
+        val location = getDestination(humidity2location, humidity)
+//        println("$seed->$fertilizer->$water->$light->$temp->$humidity->$location")
+        return location
     }
 
     fun calculateMaps(input: List<String>) {
@@ -78,7 +92,7 @@ fun main() {
     fun part1(input: List<String>): Long {
 
         measureTimeMillis { calculateMaps(input) }
-            .also { println("time to calculate maps: $it") }
+//            .also { println("time to calculate maps: $it") }
 
 
         val seeds: List<Long> = input.get(0).split(": ").drop(1)
@@ -89,7 +103,8 @@ fun main() {
             var location = 0L
             measureTimeMillis {
                 location = getLocationForSeed(seed)
-            }.also { println("time to iterave over the maps $it") }
+            }
+//                .also { println("time to iterate over the maps $it") }
             location
         }
         val min = seed2location.min()
@@ -105,12 +120,12 @@ fun main() {
             .flatMap { it.split(" ") }
             .map { it.toLong() }
             .windowed(2, 2, false)
-        var results:MutableList<Long> = mutableListOf()
+        var results: MutableList<Long> = mutableListOf()
 
-        for (seedRange in seedRanges)
-        {
-            results.add( (seedRange.first()..seedRange.first()+seedRange.last()-1).toSet()
-//                .also { println(it) }
+        for (seedRange in seedRanges) {
+
+            results.add((seedRange.first()..seedRange.first() + seedRange.last() - 1).toSet()
+                .also { println("processing ${it.size}") }
                 .map { seed -> getLocationForSeed(seed) }
                 .min()
             )
@@ -126,24 +141,30 @@ fun main() {
     check(part2(testInput2) == 46L)
 
     val input = readInput2("Day05")
-//    part1(input).println()
-//    part2(input).println()
+    measureTimeMillis { part1(input).println() }.also { it.println() }
+    measureTimeMillis { part2(input).println() }.also { it.println() }
 }
+
 
 data class Banana(
     val destinationRangeStart: Long,
     val sourceRangeStart: Long,
     val rangeLength: Long
 ) {
-//    private val range: LongRange = sourceRangeStart..<sourceRangeStart + rangeLength -1
+    private val range: LongRange = sourceRangeStart..sourceRangeStart + rangeLength - 1
+    val sourceRangeEnd: Long
+        get() = sourceRangeStart + rangeLength - 1
+
     fun destination(source: Long): Long? {
-        val sourceRange = sourceRangeStart..sourceRangeStart + rangeLength - 1
-        val contains = sourceRange.contains(source)
-        if (contains) {
-            val index = sourceRange.indexOf(source)
+        val index = range.indexOf(source)
+        if (index >= 0) {
             val destination = destinationRangeStart + index
             return destination
         }
         return null
+    }
+
+    fun destination2(source: Long): Boolean {
+        return range.contains(source)
     }
 }
