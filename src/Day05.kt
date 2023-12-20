@@ -136,12 +136,12 @@ fun main() {
     }
 
 // test if implementation meets criteria from the description, like:
-    val testInput = readInput2("Day05_test")
+    val testInput = readInputSplitByNewline("Day05_test")
     check(part1(testInput) == 35L)
-    val testInput2 = readInput2("Day05_test")
+    val testInput2 = readInputSplitByNewline("Day05_test")
     check(part2(testInput2) == 46L)
 
-    val input = readInput2("Day05")
+    val input = readInputSplitByNewline("Day05")
     measureTimeMillis { part1(input).println() }.also { it.println() }
     measureTimeMillis { part2(input).println() }.also { it.println() }
 }

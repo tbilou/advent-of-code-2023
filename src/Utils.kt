@@ -10,7 +10,7 @@ import kotlin.io.path.readText
 fun readInput(name: String) = Path("src/$name.txt").readLines()
 
 
-fun readInput2(name: String) = Path("src/$name.txt").readText().split("\n\n")
+fun readInputSplitByNewline(name: String) = Path("src/$name.txt").readText().split("\n\n")
 /**
  * Converts string to md5 hash.
  */
