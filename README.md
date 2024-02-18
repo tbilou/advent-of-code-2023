@@ -26,6 +26,7 @@ If you're stuck with Kotlin-specific questions or anything related to this templ
 | 06  | [✓][day06] | [Wait For It][aoc06]: After spending days on day 5 I solved this in less than 1h ¯\\_ (ツ)_/¯                                                                                                                                                                                                                                                                                                                                                               | 
 | 07  | [✓][day07] | [Camel Cards][aoc07]: The solution is a bit messy, but I like that I only had to write another function for part 2. The parsing and transforming of the input using function chaining is impossible to understand... Also it makes no sense to have the rules in each hand.                                                                                                                                                                                | 
 | 08  | [✓][day08] | [Haunted Wasteland][aoc08]: First part was trivial. Infinite loop running through the hashmap until the solution is found. For part 2 I tried bruteforcing it but failed. Will revisit this later                                                                                                                                                                                                                                                          | 
+| 09  | [✓][day09] | [Mirage Maintenance][aoc09]: Implemented it quick and dirty with mutability. It was easier than expected.                                                                                                                                                                                                                                                                                                                                                  | 
  
 
 [aoc01]: https://adventofcode.com/2023/day/1
@@ -36,6 +37,7 @@ If you're stuck with Kotlin-specific questions or anything related to this templ
 [aoc06]: https://adventofcode.com/2023/day/6
 [aoc07]: https://adventofcode.com/2023/day/7
 [aoc08]: https://adventofcode.com/2023/day/8
+[aoc09]: https://adventofcode.com/2023/day/9
 [day01]: src/Day01.kt
 [day02]: src/Day02.kt
 [day03]: src/Day03.kt
@@ -44,6 +46,7 @@ If you're stuck with Kotlin-specific questions or anything related to this templ
 [day06]: src/Day06.kt
 [day07]: src/Day07.kt
 [day08]: src/Day08.kt
+[day09]: src/Day09.kt
 
 [aoc]: https://adventofcode.com
 [docs]: https://kotlinlang.org/docs/home.html
