@@ -7,7 +7,7 @@ import kotlin.system.measureTimeMillis
 
 //    With my input I was running out of memory iterating over a list
 //    measureTimeMillis {
-//        (961540761..1451537511).toSet()
+//        (961540761..1451537511).toList()
 //            .forEach { it+1 }
 //    }.also { println("ms: $it") }
 
